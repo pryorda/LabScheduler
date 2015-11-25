@@ -71,13 +71,10 @@ public class LabSchedulerFXMLController implements Initializable {
     @FXML private Button btnApptRecurrence;
     @FXML public Button btnCheckAvailability;
     
-    
-    
-    
-    
+       
     // Variables and Stuff
-    private CheckAvaiController checkAvailabilityStage;
-    private ApptReFXMLController apptReStage;
+    public static CheckAvaiController checkAvailabilityStage;
+    public static ApptReFXMLController apptReStage;
     
     private EventCollection eventCollection;
     private Event event; 
@@ -337,8 +334,15 @@ public class LabSchedulerFXMLController implements Initializable {
                     Parent root = FXMLLoader.load(getClass().getResource("ApptReFXML.fxml"));
                     Scene scene = new Scene(root);
  
-                    apptReStage.setScene(scene);
-                    apptReStage.show();
+                    apptReStage.setScene(scene);                    
+                    apptReStage.showAndWait();
+                    
+                    if (LabScheduler.fieldsdisabled){
+                        btnCheckAvailability.setDisable(LabScheduler.fieldsdisabled);
+                    }
+                    else {
+                        btnCheckAvailability.setDisable(LabScheduler.fieldsdisabled);
+                    }
                     
                 } catch (IOException ex) {
                     System.out.println(ex.getMessage());

@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 
 /**
@@ -40,17 +41,23 @@ public class ApptReFXMLController extends Stage implements Initializable{
     @FXML private Button btnOk;
     
     
-    
+        
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
 
     @FXML
-    private void onBtnOk(ActionEvent event) {        
+    private void onBtnOk(ActionEvent event) {
+        LabScheduler.fieldsdisabled = true;
+        Stage stage = (Stage) btnOk.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
     private void onBtnCancel(ActionEvent event) {
+        LabScheduler.fieldsdisabled = false;
+        Stage stage = (Stage) btnOk.getScene().getWindow();
+        stage.close();
         
     }
 }

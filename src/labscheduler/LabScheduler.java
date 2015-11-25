@@ -18,8 +18,7 @@ import javafx.stage.Stage;
  * @author dpryor
  */
 public class LabScheduler extends Application {
-    @FXML private Button btnCheckAvailability;
-    
+    public static boolean fieldsdisabled;
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("LabSchedulerFXML.fxml"));
