@@ -41,7 +41,7 @@ public class Event {
     
     public String getRequestorName(){ return this.requestorName; };
     public String getRequestorEmail(){ return this.requestorEmail; };
-    public String getEventTitle(){ return this.eventTitle; };
+    public String getEventTitle(){ return(this.eventTitle); };
     public Integer getNumOfParticipants(){ return this.numOfParticipants; };
     public String getSpecialSoftwareRequests(){ return this.specialSoftwareRequests; };
     public String getDate(){ return this.date; };

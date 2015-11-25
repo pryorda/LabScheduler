@@ -19,8 +19,18 @@ import javafx.stage.Stage;
  */
 public class LabScheduler extends Application {
     public static boolean fieldsdisabled;
+    public static EventCollection eventCollection;
+    public static Event event; 
+    
+    
+    
     @Override
     public void start(Stage stage) throws Exception {
+        
+        eventCollection = new EventCollection();
+        eventCollection.readFile();
+        event = new Event();
+                
         Parent root = FXMLLoader.load(getClass().getResource("LabSchedulerFXML.fxml"));
         
         Scene scene = new Scene(root);

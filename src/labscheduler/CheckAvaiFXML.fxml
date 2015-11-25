@@ -6,6 +6,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="labscheduler.CheckAvaiController">
-    
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="labscheduler.CheckAvaiController">
+   <children>
+      <TableView fx:id="tbEvents" layoutX="14.0" layoutY="166.0" prefHeight="226.0" prefWidth="564.0" />
+   </children>
 </AnchorPane>

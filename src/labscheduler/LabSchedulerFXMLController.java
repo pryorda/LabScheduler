@@ -74,11 +74,7 @@ public class LabSchedulerFXMLController implements Initializable {
        
     // Variables and Stuff
     public static CheckAvaiController checkAvailabilityStage;
-    public static ApptReFXMLController apptReStage;
-    
-    private EventCollection eventCollection;
-    private Event event; 
-    
+    public static ApptReFXMLController apptReStage;    
     boolean specialSoftwareRequest = false;
     boolean startMeridiem = false;
     boolean endMeridiem = false;
@@ -306,11 +302,6 @@ public class LabSchedulerFXMLController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        eventCollection = new EventCollection();
-        eventCollection.readFile();
-        
-        
-        
         checkAvailabilityStage = new CheckAvaiController();
         btnCheckAvailability.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(ActionEvent e) {
@@ -321,8 +312,8 @@ public class LabSchedulerFXMLController implements Initializable {
                     checkAvailabilityStage.setScene(scene);
                     checkAvailabilityStage.show();
                     
-                } catch (IOException ex) {
-                    System.out.println(ex.getMessage());
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
             }
         });
@@ -339,13 +330,27 @@ public class LabSchedulerFXMLController implements Initializable {
                     
                     if (LabScheduler.fieldsdisabled){
                         btnCheckAvailability.setDisable(LabScheduler.fieldsdisabled);
+                        txtDate.setDisable(LabScheduler.fieldsdisabled);
+                        txtStartTime.setDisable(LabScheduler.fieldsdisabled);
+                        txtEndTime.setDisable(LabScheduler.fieldsdisabled);
+                        togStartMeridiem.setDisable(LabScheduler.fieldsdisabled);
+                        togEndMeridiem.setDisable(LabScheduler.fieldsdisabled);
+                        txtDate.clear();
+                        txtStartTime.clear();
+                        txtEndTime.clear();
+                        
                     }
                     else {
                         btnCheckAvailability.setDisable(LabScheduler.fieldsdisabled);
+                        txtDate.setDisable(LabScheduler.fieldsdisabled);
+                        txtStartTime.setDisable(LabScheduler.fieldsdisabled);
+                        txtEndTime.setDisable(LabScheduler.fieldsdisabled);
+                        togStartMeridiem.setDisable(LabScheduler.fieldsdisabled);
+                        togEndMeridiem.setDisable(LabScheduler.fieldsdisabled);
                     }
                     
-                } catch (IOException ex) {
-                    System.out.println(ex.getMessage());
+                } catch (Exception ex) {
+                    
                 }
             }
         });
