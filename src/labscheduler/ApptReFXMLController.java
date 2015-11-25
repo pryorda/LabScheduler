@@ -39,6 +39,7 @@ public class ApptReFXMLController extends Stage implements Initializable{
     @FXML private TextField txtBeginDate;
     @FXML private TextField txtEndDate;
     @FXML private Button btnOk;
+    @FXML private Button btnCancel;
     
     
         
@@ -56,7 +57,7 @@ public class ApptReFXMLController extends Stage implements Initializable{
     @FXML
     private void onBtnCancel(ActionEvent event) {
         LabScheduler.fieldsdisabled = false;
-        Stage stage = (Stage) btnOk.getScene().getWindow();
+        Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
         
     }
