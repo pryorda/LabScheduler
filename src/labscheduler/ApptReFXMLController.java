@@ -46,14 +46,11 @@ public class ApptReFXMLController extends Stage implements Initializable{
     }
 
     @FXML
-    private void onBtnOk(ActionEvent event) {
-        main.btnCheckAvailability.setDisable(true);
- 
-        
+    private void onBtnOk(ActionEvent event) {        
     }
 
     @FXML
     private void onBtnCancel(ActionEvent event) {
-        main.btnCheckAvailability.setDisable(false);
+        
     }
 }
