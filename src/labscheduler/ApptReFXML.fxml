@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="labscheduler.ApptReFXMLController">
+   <children>
+      <Label layoutX="28.0" layoutY="82.0" text="Start Time (hh:mm)">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="386.0" layoutY="82.0" text="EndTime (hh:mm)">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtStartTime" layoutX="26.0" layoutY="109.0" prefHeight="25.0" prefWidth="108.0" />
+      <ToggleButton fx:id="togStartMeridien" layoutX="136.0" layoutY="109.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="42.0" text="AM" />
+      <ToggleButton fx:id="togEndMeridien" layoutX="490.0" layoutY="109.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="42.0" text="AM" />
+      <TextField fx:id="txtEndTime" layoutX="380.0" layoutY="109.0" prefHeight="25.0" prefWidth="108.0" />
+      <CheckBox fx:id="chkSun" layoutX="26.0" layoutY="153.0" mnemonicParsing="false" text="Sun.">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="chkMon" layoutX="101.0" layoutY="153.0" mnemonicParsing="false" text="Mon.">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="chkTues" layoutX="180.0" layoutY="153.0" mnemonicParsing="false" text="Tues.">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="chkWed" layoutX="261.0" layoutY="153.0" mnemonicParsing="false" text="Wed.">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="chkThurs" layoutX="343.0" layoutY="153.0" mnemonicParsing="false" text="Thurs.">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="chkFri" layoutX="427.0" layoutY="153.0" mnemonicParsing="false" text="Fri.">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="chkSat" layoutX="490.0" layoutY="153.0" mnemonicParsing="false" text="Sat.">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </CheckBox>
+      <Label layoutX="28.0" layoutY="200.0" text="Begin Date (mm/dd/yyyy)">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="340.0" layoutY="200.0" text="End Date (mm/dd/yyyy)">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtBeginDate" layoutX="43.0" layoutY="227.0" />
+      <TextField fx:id="txtEndDate" layoutX="360.0" layoutY="227.0" />
+      <Button fx:id="btnOk" layoutX="70.0" layoutY="309.0" mnemonicParsing="false" onAction="#onBtnOk" text="Ok">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnCancel" layoutX="386.0" layoutY="309.0" mnemonicParsing="false" onAction="#onBtnCancel" text="Cancel">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Label layoutX="168.0" layoutY="27.0" text="Appointment Recurrence">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
