@@ -138,24 +138,13 @@ public class LabSchedulerFXMLController implements Initializable {
         }
     }
     
-    public void handleSubmitLabRequest(ActionEvent event) {
-        // Variables
-        String requestorName = "";
-        String requestorEmail = ""; 
-        String eventTitle = "";
-        Integer numOfParticipants = 0;
-        String specialSoftwareRequests = "";
-        String date = "";
-        String startTime = "";
-        String endTime = "";
-        
-        
-        //Outside try catch to anything
+    public boolean validateAndSet(){
+                //Outside try catch to anything
         try{
             // Validate requestor Name
             try {
-                requestorName = txtRequestorName.getText();
-                if(requestorName.equals("")){
+                LabScheduler.event.setRequestorName(txtRequestorName.getText());
+                if(LabScheduler.event.getRequestorName().equals("")){
                     throw new Exception("Please enter a Name!\n");
                 }
                 txtRequestorName.setBorder(Border.EMPTY);
@@ -167,9 +156,9 @@ public class LabSchedulerFXMLController implements Initializable {
 
             //Validate requestorEmail 
             try{
-                requestorEmail = txtRequestorEmail.getText();
+                LabScheduler.event.setRequestorEmail(txtRequestorEmail.getText());
                 // RegEx provided by http://stackoverflow.com/questions/624581/what-is-the-best-java-email-address-validation-method
-                if(!requestorEmail.matches("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")){
+                if(!LabScheduler.event.getRequestorEmail().matches("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")){
                     throw new Exception("Please enter a valid email.\n");
                 }
                 txtRequestorEmail.setBorder(Border.EMPTY);
@@ -181,8 +170,8 @@ public class LabSchedulerFXMLController implements Initializable {
 
             //Validate eventTitle
             try {
-                eventTitle = txtEventTitle.getText();
-                if(eventTitle.equals("")){
+                LabScheduler.event.setEventTitle(txtEventTitle.getText());
+                if(LabScheduler.event.getEventTitle().equals("")){
                     throw new Exception("Please enter a title!\n");
                 }
                 txtEventTitle.setBorder(Border.EMPTY);
@@ -195,13 +184,13 @@ public class LabSchedulerFXMLController implements Initializable {
 
             // Validate numOfParticants
             try {
-                numOfParticipants = Integer.parseInt(txtNumOfParticipants.getText());
-                if (numOfParticipants <= 0){
+                LabScheduler.event.setNumOfParticipants(Integer.parseInt(txtNumOfParticipants.getText()));
+                if (LabScheduler.event.getNumOfParticipants() <= 0){
                     throw new NumberFormatException("Number of Participants is less then or equal to 0.\n");      
                 }
                 txtNumOfParticipants.setBorder(Border.EMPTY);
             }
-            catch(NumberFormatException ex){
+            catch(Exception ex){
                 txtNumOfParticipants.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, null)));
                 String message = ex.getMessage();
                 if(message.contains("input")){
@@ -213,8 +202,8 @@ public class LabSchedulerFXMLController implements Initializable {
             //Validate that txtSpecialSoftwareRequest has data
             if(specialSoftwareRequest){
                 try {
-                    specialSoftwareRequests = txtSpecialSoftwareRequests.getText();
-                    if(specialSoftwareRequests.equals("")){
+                    LabScheduler.event.setSpecialSoftwareRequests(txtSpecialSoftwareRequests.getText());
+                    if(LabScheduler.event.getSpecialSoftwareRequests().equals("")){
                         throw new Exception("Since you checked yes to Special Software Requests.. Please add some software or click no.");
                     }
                 }
@@ -225,10 +214,10 @@ public class LabSchedulerFXMLController implements Initializable {
             
             //Validate Date format and date
             try {
-                date = txtDate.getText();
+                LabScheduler.event.setDate(txtDate.getText());
                 SimpleDateFormat sdfrmt = new SimpleDateFormat("MM/dd/yyyy");
                 sdfrmt.setLenient(false);
-                if(!sdfrmt.parse(date).after(new Date())){
+                if(!sdfrmt.parse(LabScheduler.event.getDate()).after(new Date())){
                     throw new Exception();
                 }
                 txtDate.setBorder(Border.EMPTY);
@@ -240,8 +229,8 @@ public class LabSchedulerFXMLController implements Initializable {
             
             // Validate Start Time
             try {
-                startTime = txtStartTime.getText();
-                if(!startTime.matches("(0[1-9]|1[012]|[1-9]):[0-5][0-9]")){
+                LabScheduler.event.setStartTime(txtStartTime.getText() + " " + togStartMeridiem.getText());
+                if(!LabScheduler.event.getStartTime().matches("(0[1-9]|1[012]|[1-9]):[0-5][0-9] [AP][M]")){
                     throw new Exception("Please enter a valid start time!\n");
                 }
                 txtStartTime.setBorder(Border.EMPTY);
@@ -252,8 +241,8 @@ public class LabSchedulerFXMLController implements Initializable {
             }
             // Validate End Time
             try {
-                endTime = txtEndTime.getText();
-                if(!endTime.matches("(0[1-9]|1[012]|[1-9]):[0-5][0-9]")){
+                LabScheduler.event.setEndTime(txtEndTime.getText() + " " + togEndMeridiem.getText());
+                if(!LabScheduler.event.getEndTime().matches("(0[1-9]|1[012]|[1-9]):[0-5][0-9] [AP][M]")){
                     throw new Exception("Please enter a valid end time!\n");
                 }
                 txtEndTime.setBorder(Border.EMPTY);
@@ -264,17 +253,26 @@ public class LabSchedulerFXMLController implements Initializable {
             }
             
             //Validate time is after start time.
-            if(!startTime.isEmpty() || !endTime.isEmpty()){
-                SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
-                if(dateFormat.parse(startTime).after(dateFormat.parse(endTime)) && endMeridiem != true){
-                    errorMessage += "Start Time is after End Time.";
+            try {
+                if(!LabScheduler.event.getStartTime().isEmpty() || !LabScheduler.event.getEndTime().isEmpty()){
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm a");
+                    if(dateFormat.parse(LabScheduler.event.getStartTime()).after(dateFormat.parse(LabScheduler.event.getEndTime())) && endMeridiem != true){
+                        throw new RuntimeException("Start Time is after End Time.");
+                    }
+                    if(LabScheduler.event.getStartTime().equals(LabScheduler.event.getEndTime())){
+                        throw new RuntimeException("Start Time is equal to End Time.");
+                    }
                 }
-                if(dateFormat.parse(startTime).after(dateFormat.parse(endTime)) && endMeridiem == true && startMeridiem == true){
-                    errorMessage += "Start Time is after End Time.";
-                }
-                if(startTime.equals(endTime) && endMeridiem == startMeridiem){
-                    errorMessage += "Start Time is equal to End Time.";
-                }
+            }
+            catch(RuntimeException ex){
+                txtEndTime.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, null)));
+                txtStartTime.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, null)));
+                errorMessage += ex.getMessage();
+            
+            }
+            catch(Exception ex){
+                txtEndTime.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, null)));
+                txtStartTime.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, null)));
             }
 
             
@@ -286,17 +284,32 @@ public class LabSchedulerFXMLController implements Initializable {
             if (!errorMessage.equals("")){
                 throw new Exception(errorMessage);
             }
-            // Pop up window to show output data
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "RequestorName = " + requestorName + "\nrequestorEmail = " +  requestorEmail +
-                    "\neventTitle = " +  eventTitle +  "\nnumOfParticipants = " + numOfParticipants + "\nspecialSoftwareRequests = " + specialSoftwareRequests + 
-                    "\nDate = " + date + "\nstartTime = " + startTime + togStartMeridiem.getText() + "\nendTime = " + endTime + togEndMeridiem.getText());
-            Optional<ButtonType> result = alert.showAndWait();
-
         }
         catch(Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR, ex.getMessage());
                 Optional<ButtonType> result = alert.showAndWait();
             errorMessage = "";
+            return(false);
+        }
+        return(true);
+    }
+    
+    
+    
+    
+    public void handleSubmitLabRequest(ActionEvent event) {
+        if(validateAndSet()){
+            // Pop up window to show output data
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "RequestorName = "
+                    + "" + LabScheduler.event.getRequestorName() + "\nrequestorEmail = " 
+                    +  LabScheduler.event.getRequestorEmail() +
+                    "\neventTitle = " +  LabScheduler.event.getEventTitle() +  
+                    "\nnumOfParticipants = " + LabScheduler.event.getNumOfParticipants().toString() 
+                    + "\nspecialSoftwareRequests = " + LabScheduler.event.getSpecialSoftwareRequests() + 
+                    "\nDate = " + LabScheduler.event.getDate() + "\nstartTime = " + 
+                    LabScheduler.event.getStartTime() + 
+                    "\nendTime = " + LabScheduler.event.getEndTime());
+            Optional<ButtonType> result = alert.showAndWait();
         }
     }
     
@@ -305,15 +318,17 @@ public class LabSchedulerFXMLController implements Initializable {
         checkAvailabilityStage = new CheckAvaiController();
         btnCheckAvailability.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(ActionEvent e) {
-                try {
-                    Parent root = FXMLLoader.load(getClass().getResource("CheckAvaiFXML.fxml"));
-                    Scene scene = new Scene(root);
+                if(validateAndSet()){
+                    try {
+                        Parent root = FXMLLoader.load(getClass().getResource("CheckAvaiFXML.fxml"));
+                        Scene scene = new Scene(root);
  
-                    checkAvailabilityStage.setScene(scene);
-                    checkAvailabilityStage.show();
+                        checkAvailabilityStage.setScene(scene);
+                        checkAvailabilityStage.show();
                     
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         });

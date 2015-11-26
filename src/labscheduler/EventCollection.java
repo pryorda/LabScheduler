@@ -14,10 +14,10 @@ import java.io.LineNumberReader;
  * @author dpryor
  */
 public class EventCollection {
-    public ArrayList<Event> eventCollection;
+    public ArrayList<Event> allEvents;
     
     public EventCollection(){
-        eventCollection = new ArrayList<Event>();
+        allEvents = new ArrayList<Event>();
     }
     
     public void readFile(){
@@ -38,7 +38,7 @@ public class EventCollection {
                 }
                 tmpEvent = new Event();
                 tmpEvent.parseEvent(line);
-                eventCollection.add(tmpEvent);
+                allEvents.add(tmpEvent);
             }
         }
         catch(Exception e){
