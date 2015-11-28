@@ -45,6 +45,9 @@ public class CheckAvaiController extends Stage implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        LabScheduler.eventCollection = new EventCollection();
+        LabScheduler.eventCollection.readFile();
+        
         TableColumn<Event, String> cEventTitle = 
                 new TableColumn<Event, String>("Title:");
         TableColumn<Event, String> cEventDate = 
@@ -165,10 +168,12 @@ public class CheckAvaiController extends Stage implements Initializable{
                     if((dateFormat.parse(LabScheduler.event.getStartTime()).after(dateFormat.parse(obj.getStartTime())) || (LabScheduler.event.getStartTime().equals(obj.getStartTime())))  && 
                             dateFormat.parse(LabScheduler.event.getStartTime()).before(dateFormat.parse(obj.getEndTime()))){
                         availability = false;
+                        break;
                     }
                     else if (dateFormat.parse(LabScheduler.event.getEndTime()).after(dateFormat.parse(obj.getStartTime())) && 
                             ((dateFormat.parse(LabScheduler.event.getEndTime()).before(dateFormat.parse(obj.getEndTime()))) || (LabScheduler.event.getEndTime().equals(obj.getEndTime())))){
                         availability = false;
+                        break;
                     }
                     else{
                         availability = true;

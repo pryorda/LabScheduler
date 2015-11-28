@@ -26,7 +26,6 @@ public class LabScheduler extends Application {
         
     @Override
     public void start(Stage stage) throws Exception {
-        
         eventCollection = new EventCollection();
         eventCollection.readFile();
         event = new Event();

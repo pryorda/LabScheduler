@@ -69,7 +69,7 @@
       <TextField fx:id="txtStartTime" layoutX="230.0" layoutY="251.0" prefHeight="25.0" prefWidth="86.0" promptText="hh:mm" />
       <TextField fx:id="txtEndTime" layoutX="230.0" layoutY="278.0" prefHeight="25.0" prefWidth="86.0" promptText="hh:mm" />
       <CheckBox fx:id="cboxPrinterRequest" layoutX="226.0" layoutY="413.0" mnemonicParsing="false" onAction="#handlePrinterRequest" />
-      <Button fx:id="btnClear" layoutX="185.0" layoutY="635.0" mnemonicParsing="false" text="Clear">
+      <Button fx:id="btnClear" layoutX="185.0" layoutY="635.0" mnemonicParsing="false" onAction="#onClear" text="Clear">
          <font>
             <Font size="18.0" />
          </font>

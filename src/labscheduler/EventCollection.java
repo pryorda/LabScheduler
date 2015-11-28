@@ -40,9 +40,34 @@ public class EventCollection {
                 tmpEvent.parseEvent(line);
                 allEvents.add(tmpEvent);
             }
+            reader.close();
+            fileReader.close();
         }
         catch(Exception e){
             System.out.println("Failure to read events file or failure to parse data. " + e.getMessage());
         }
-    }    
+    }
+    public void writeFile(){
+        File myFile;
+        FileOutputStream is;
+        OutputStreamWriter osw;    
+        Writer w;
+        
+        try{
+            myFile = new File("events.csv");
+            is = new FileOutputStream(myFile);
+            osw = new OutputStreamWriter(is);    
+            w = new BufferedWriter(osw);
+            w.write("RequestorName,RequestorEmail,NumberOfParticipants,SpecialSoftwareRequests,EventTitle,EventDate,StartTime,EndTime\n");
+            for(Event event : this.allEvents){
+                w.write(event.toString() + "\n");
+            }
+            w.close();
+            osw.close();
+            is.close();
+        }
+        catch(Exception e){
+            System.out.println("Failure to write events file: " + e.getMessage());
+        }
+    }        
 }

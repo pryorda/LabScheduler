@@ -75,8 +75,8 @@ public class LabSchedulerFXMLController implements Initializable {
     
        
     // Variables and Stuff
-    public static CheckAvaiController checkAvailabilityStage;
-    public static ApptReFXMLController apptReStage;    
+    private CheckAvaiController checkAvailabilityStage;
+    private ApptReFXMLController apptReStage;
     boolean specialSoftwareRequest = false;
     boolean startMeridiem = false;
     boolean endMeridiem = false;
@@ -88,8 +88,30 @@ public class LabSchedulerFXMLController implements Initializable {
         System.exit(0);
     }
     //Clear all data from existing submit
-    public void handleClear(ActionEvent event){
-        //todo
+    public void onClear(ActionEvent event){
+        LabScheduler.event = new Event();
+        LabScheduler.eventCollection = new EventCollection();
+        LabScheduler.recurrence = "";
+        LabScheduler.availability = false;
+        txtRequestorName.setText("");
+        txtRequestorEmail.setText("");
+        txtEventTitle.setText("");
+        txtStartTime.setText("");
+        txtEndTime.setText("");
+        txtRecurrence.setPromptText("Only If reoccuring");
+        cboxPrinterRequest.setSelected(false);
+        radYes.setSelected(false);
+        radNo.setSelected(false);
+        togStartMeridiem.setSelected(false);
+        togEndMeridiem.setSelected(false);
+        togStartMeridiem.setText("AM");
+        togEndMeridiem.setText("AM");
+        txtSpecialSoftwareRequests.setText("");
+        txtSpecialSoftwareRequests.setDisable(true);
+        specialSoftwareRequest = false;
+        startMeridiem = false;
+        endMeridiem = false;
+        printerRequest = false;
     }
     
     //Set the SSR to enabled and editable
@@ -313,6 +335,10 @@ public class LabSchedulerFXMLController implements Initializable {
                         LabScheduler.event.getStartTime() + 
                         "\nendTime = " + LabScheduler.event.getEndTime());
                 Optional<ButtonType> result = alert.showAndWait();
+                System.out.println("testing!");
+                LabScheduler.eventCollection.allEvents.add(LabScheduler.event);
+                LabScheduler.eventCollection.writeFile();
+                LabScheduler.availability = false;
             }
             else {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Please check availability before submitting!");
@@ -321,9 +347,9 @@ public class LabSchedulerFXMLController implements Initializable {
         }
         else if(!LabScheduler.recurrence.isEmpty()){
             if(!txtRequestorName.getText().isEmpty() && !txtRequestorEmail.getText().isEmpty() && !txtEventTitle.getText().isEmpty()){
-                            // Pop up window to show output data
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Event scheduled by " + txtRequestorName.getText() + " with email " + txtRequestorEmail.getText() + " with note: " + LabScheduler.recurrence);
-            Optional<ButtonType> result = alert.showAndWait();
+                // Pop up window to show output data
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Event scheduled by " + txtRequestorName.getText() + " with email " + txtRequestorEmail.getText() + " with note: " + LabScheduler.recurrence);
+                Optional<ButtonType> result = alert.showAndWait();
             }
             else{
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Validate Requestor name, email, and event title is set");
@@ -383,7 +409,7 @@ public class LabSchedulerFXMLController implements Initializable {
                         txtEndTime.setDisable(LabScheduler.fieldsdisabled);
                         togStartMeridiem.setDisable(LabScheduler.fieldsdisabled);
                         togEndMeridiem.setDisable(LabScheduler.fieldsdisabled);
-                        txtRecurrence.setText("Only if reocurring");
+                        txtRecurrence.setPromptText("Only if reocurring");
                         LabScheduler.recurrence = "";
                     }
                     

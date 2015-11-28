@@ -61,4 +61,13 @@ public class Event {
             this.setEndTime(fields[7]);
         }
     }
+    
+    @Override
+    public String toString(){
+        //returns CSV format of event
+        return(this.getRequestorName() + "," + this.getRequestorEmail() + "," + 
+                this.getNumOfParticipants().toString() + "," + this.getSpecialSoftwareRequests() + 
+                "," + this.getEventTitle() + "," + this.getDate() + "," + this.getStartTime() 
+                + "," + this.getEndTime());
+    }
 }
