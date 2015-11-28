@@ -20,8 +20,8 @@
          </font>
       </Label>
       <TextField fx:id="txtStartTime" layoutX="26.0" layoutY="109.0" prefHeight="25.0" prefWidth="108.0" />
-      <ToggleButton fx:id="togStartMeridien" layoutX="136.0" layoutY="109.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="42.0" text="AM" />
-      <ToggleButton fx:id="togEndMeridien" layoutX="490.0" layoutY="109.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="42.0" text="AM" />
+      <ToggleButton fx:id="togStartMeridiem" layoutX="136.0" layoutY="109.0" mnemonicParsing="false" onAction="#handleStartMeridiem" prefHeight="25.0" prefWidth="42.0" text="AM" />
+      <ToggleButton fx:id="togEndMeridiem" layoutX="490.0" layoutY="109.0" mnemonicParsing="false" onAction="#handleEndMeridiem" prefHeight="25.0" prefWidth="42.0" text="AM" />
       <TextField fx:id="txtEndTime" layoutX="380.0" layoutY="109.0" prefHeight="25.0" prefWidth="108.0" />
       <CheckBox fx:id="chkSun" layoutX="26.0" layoutY="153.0" mnemonicParsing="false" text="Sun.">
          <font>

@@ -59,6 +59,7 @@ public class LabSchedulerFXMLController implements Initializable {
     @FXML private TextField txtDate;
     @FXML private TextField txtStartTime;
     @FXML private TextField txtEndTime;
+    @FXML private TextArea txtRecurrence;
     @FXML private CheckBox cboxPrinterRequest;
     @FXML private Button btnSubmitLabRequest;
     @FXML private Button btnClear;
@@ -70,6 +71,7 @@ public class LabSchedulerFXMLController implements Initializable {
     @FXML private RadioButton radNo;
     @FXML private Button btnApptRecurrence;
     @FXML public Button btnCheckAvailability;
+    
     
        
     // Variables and Stuff
@@ -139,7 +141,7 @@ public class LabSchedulerFXMLController implements Initializable {
     }
     
     public boolean validateAndSet(){
-                //Outside try catch to anything
+        //Outside try catch to anything
         try{
             // Validate requestor Name
             try {
@@ -315,6 +317,7 @@ public class LabSchedulerFXMLController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        txtRecurrence.setWrapText(true);
         checkAvailabilityStage = new CheckAvaiController();
         btnCheckAvailability.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(ActionEvent e) {
@@ -353,6 +356,7 @@ public class LabSchedulerFXMLController implements Initializable {
                         txtDate.clear();
                         txtStartTime.clear();
                         txtEndTime.clear();
+                        txtRecurrence.setText(LabScheduler.recurrence);
                         
                     }
                     else {

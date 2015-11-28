@@ -6,6 +6,8 @@
 package labscheduler;
 
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.ResourceBundle;
 import javafx.beans.Observable;
@@ -35,6 +37,9 @@ public class CheckAvaiController extends Stage implements Initializable{
     @FXML private Button btnCheckAvailability;
     @FXML private Label lbAvailability;
     @FXML private Button btnClose;
+    private boolean availability;
+    
+    SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm a");
 
     
     @Override
@@ -154,6 +159,34 @@ public class CheckAvaiController extends Stage implements Initializable{
 
     @FXML
     private void onCheckAvailability(ActionEvent event) {
+        for(Event obj : LabScheduler.eventCollection.allEvents){
+            if(obj.getDate().equals(LabScheduler.event.getDate())){
+                try {
+                    if((dateFormat.parse(LabScheduler.event.getStartTime()).after(dateFormat.parse(obj.getStartTime())) || (LabScheduler.event.getStartTime().equals(obj.getStartTime())))  && dateFormat.parse(LabScheduler.event.getStartTime()).before(dateFormat.parse(obj.getEndTime()))){
+                        availability = false;
+                    }
+                    else if (dateFormat.parse(LabScheduler.event.getEndTime()).after(dateFormat.parse(obj.getStartTime())) && 
+                            ((dateFormat.parse(LabScheduler.event.getEndTime()).before(dateFormat.parse(obj.getEndTime()))) || (LabScheduler.event.getEndTime().equals(obj.getEndTime())))){
+                        availability = false;
+                    }
+                    else{
+                        availability = true;
+                    }
+                 }
+                catch(ParseException ex){
+                    // ToDO                    
+                }
+            }
+            else {
+                availability = true;
+            }
+        }
+        if(availability){
+            lbAvailability.setText("Lab available on " + LabScheduler.event.getDate());
+        }
+        else{
+            lbAvailability.setText("Lab not available on " + LabScheduler.event.getDate());
+        }
     }
 
     @FXML

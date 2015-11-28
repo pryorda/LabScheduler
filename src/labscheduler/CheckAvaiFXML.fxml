@@ -26,7 +26,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Label fx:id="lbAvailability" layoutX="245.0" layoutY="129.0" prefHeight="20.0" prefWidth="337.0" text="Lab Not Available">
+      <Label fx:id="lbAvailability" layoutX="245.0" layoutY="129.0" prefHeight="20.0" prefWidth="337.0" text="Lab Availability: ">
          <font>
             <Font size="14.0" />
          </font>

@@ -21,6 +21,7 @@ public class LabScheduler extends Application {
     public static boolean fieldsdisabled;
     public static EventCollection eventCollection;
     public static Event event; 
+    public static String recurrence; 
         
     @Override
     public void start(Stage stage) throws Exception {
