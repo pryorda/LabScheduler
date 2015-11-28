@@ -300,18 +300,35 @@ public class LabSchedulerFXMLController implements Initializable {
     
     
     public void handleSubmitLabRequest(ActionEvent event) {
-        if(validateAndSet()){
+        if(LabScheduler.recurrence.isEmpty() && validateAndSet()){
+            if(LabScheduler.availability){
             // Pop up window to show output data
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "RequestorName = "
-                    + "" + LabScheduler.event.getRequestorName() + "\nrequestorEmail = " 
-                    +  LabScheduler.event.getRequestorEmail() +
-                    "\neventTitle = " +  LabScheduler.event.getEventTitle() +  
-                    "\nnumOfParticipants = " + LabScheduler.event.getNumOfParticipants().toString() 
-                    + "\nspecialSoftwareRequests = " + LabScheduler.event.getSpecialSoftwareRequests() + 
-                    "\nDate = " + LabScheduler.event.getDate() + "\nstartTime = " + 
-                    LabScheduler.event.getStartTime() + 
-                    "\nendTime = " + LabScheduler.event.getEndTime());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "RequestorName = "
+                        + " " + LabScheduler.event.getRequestorName() + "\nrequestorEmail = " 
+                        +  LabScheduler.event.getRequestorEmail() +
+                        "\neventTitle = " +  LabScheduler.event.getEventTitle() +  
+                        "\nnumOfParticipants = " + LabScheduler.event.getNumOfParticipants().toString() 
+                        + "\nspecialSoftwareRequests = " + LabScheduler.event.getSpecialSoftwareRequests() + 
+                        "\nDate = " + LabScheduler.event.getDate() + "\nstartTime = " + 
+                        LabScheduler.event.getStartTime() + 
+                        "\nendTime = " + LabScheduler.event.getEndTime());
+                Optional<ButtonType> result = alert.showAndWait();
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Please check availability before submitting!");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
+        }
+        else if(!LabScheduler.recurrence.isEmpty()){
+            if(!txtRequestorName.getText().isEmpty() && !txtRequestorEmail.getText().isEmpty() && !txtEventTitle.getText().isEmpty()){
+                            // Pop up window to show output data
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Event scheduled by " + txtRequestorName.getText() + " with email " + txtRequestorEmail.getText() + " with note: " + LabScheduler.recurrence);
             Optional<ButtonType> result = alert.showAndWait();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Validate Requestor name, email, and event title is set");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
         }
     }
     
@@ -366,6 +383,8 @@ public class LabSchedulerFXMLController implements Initializable {
                         txtEndTime.setDisable(LabScheduler.fieldsdisabled);
                         togStartMeridiem.setDisable(LabScheduler.fieldsdisabled);
                         togEndMeridiem.setDisable(LabScheduler.fieldsdisabled);
+                        txtRecurrence.setText("Only if reocurring");
+                        LabScheduler.recurrence = "";
                     }
                     
                 } catch (Exception ex) {

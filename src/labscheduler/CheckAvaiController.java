@@ -162,7 +162,8 @@ public class CheckAvaiController extends Stage implements Initializable{
         for(Event obj : LabScheduler.eventCollection.allEvents){
             if(obj.getDate().equals(LabScheduler.event.getDate())){
                 try {
-                    if((dateFormat.parse(LabScheduler.event.getStartTime()).after(dateFormat.parse(obj.getStartTime())) || (LabScheduler.event.getStartTime().equals(obj.getStartTime())))  && dateFormat.parse(LabScheduler.event.getStartTime()).before(dateFormat.parse(obj.getEndTime()))){
+                    if((dateFormat.parse(LabScheduler.event.getStartTime()).after(dateFormat.parse(obj.getStartTime())) || (LabScheduler.event.getStartTime().equals(obj.getStartTime())))  && 
+                            dateFormat.parse(LabScheduler.event.getStartTime()).before(dateFormat.parse(obj.getEndTime()))){
                         availability = false;
                     }
                     else if (dateFormat.parse(LabScheduler.event.getEndTime()).after(dateFormat.parse(obj.getStartTime())) && 
@@ -183,9 +184,11 @@ public class CheckAvaiController extends Stage implements Initializable{
         }
         if(availability){
             lbAvailability.setText("Lab available on " + LabScheduler.event.getDate());
+            LabScheduler.availability = true;
         }
         else{
             lbAvailability.setText("Lab not available on " + LabScheduler.event.getDate());
+            LabScheduler.availability = false;
         }
     }
 

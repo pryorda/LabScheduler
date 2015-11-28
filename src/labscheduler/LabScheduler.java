@@ -22,6 +22,7 @@ public class LabScheduler extends Application {
     public static EventCollection eventCollection;
     public static Event event; 
     public static String recurrence; 
+    public static boolean availability;
         
     @Override
     public void start(Stage stage) throws Exception {
@@ -29,6 +30,8 @@ public class LabScheduler extends Application {
         eventCollection = new EventCollection();
         eventCollection.readFile();
         event = new Event();
+        availability = false;
+        recurrence = "";
                 
         Parent root = FXMLLoader.load(getClass().getResource("LabSchedulerFXML.fxml"));
         
